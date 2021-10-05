@@ -1,0 +1,19 @@
+.cryptoCard { 
+    width: 20%;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin: 8px;
+}
+
+.symbol {
+    font-size: 16px;
+    margin: 8px 0px 0px 8px;
+}
+
+.price {
+    font-size: 20px;
+    margin: 8px 0px 8px 8px;
+}
