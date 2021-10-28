@@ -1,0 +1,63 @@
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  }
+  
+  @media (min-width: 768px) {
+    .gradient-form {
+      height: 100vh !important;
+    }
+  }
+  @media (min-width: 769px) {
+    .gradient-custom-2 {
+      border-top-right-radius: .3rem;
+      border-bottom-right-radius: .3rem;
+    }
+  }
+
+#login-card{
+  align-items: center;
+  justify-content: center;
+}
+
+.login  {
+  margin:auto;
+}
+
+.login button{
+  text-align: center;
+  background-color: rgb(3, 30, 88) ;
+  color: whitesmoke;
+  border: none;
+  font-size: 1.5em;
+}
+
+.login input, .login select,.login button{
+  width: 70%;
+  padding: 13px;
+  margin: 13px;
+}
+.register h1, .login h1{
+  text-align: center;
+  color: rgb(3, 30, 88);
+}
+
+.b-0 {
+  bottom: 0;
+}
+
+
+.login-body .login-card{
+  background-color: #b44593;
+  background-image: url(https://i.pinimg.com/originals/a6/79/b2/a679b2b9a7295f3238a4f878f0c8ef3d.jpg);
+  width: 45%;
+  height: 100vh;
+   background-position: center center;
+    background-size: cover ;
+}
