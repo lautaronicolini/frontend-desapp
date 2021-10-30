@@ -21,16 +21,16 @@
     }
   }
 
-#login-card{
+#login-card {
   align-items: center;
   justify-content: center;
 }
 
-.login  {
+.login {
   margin:auto;
 }
 
-.login button{
+.login button {
   text-align: center;
   background-color: rgb(3, 30, 88) ;
   color: whitesmoke;
@@ -38,23 +38,22 @@
   font-size: 1.5em;
 }
 
-.login input, .login select,.login button{
+.login input, .login select,.login button {
   width: 70%;
   padding: 13px;
   margin: 13px;
 }
-.register h1, .login h1{
+
+ .login h1 {
   text-align: center;
-  color: rgb(3, 30, 88);
+  color: rgb(34, 42, 59);
 }
 
 .b-0 {
   bottom: 0;
 }
 
-
 .login-body .login-card{
-  background-color: #b44593;
   background-image: url(https://i.pinimg.com/originals/a6/79/b2/a679b2b9a7295f3238a4f878f0c8ef3d.jpg);
   width: 45%;
   height: 100vh;

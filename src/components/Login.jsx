@@ -19,8 +19,8 @@ return(
         <div className='login-card'/>
         <div className='form section container center d-flex flex-column align-items-center login' style={{ width: '55%', maxHeight: '100vh' }}>
             <h1>Login to your account</h1>
-            <input type='text' name='username' placeholder='Email'/>
-            <input type='password' name='password' placeholder='Password'/>
+            <input className="login-input" type='text' name='username' placeholder='Email'/>
+            <input className="login-input" type='password' name='password' placeholder='Password'/>
                 <p> Don't have an account?</p>  <Link to="/register">Sign-up here</Link>
             <button>Log In</button>
             
