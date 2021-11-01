@@ -7,6 +7,7 @@ import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import  Navbar  from './Navbar';
 
 
 const baseURL = 'http://localhost:8080/api/login' //endpoint of backend API
@@ -15,6 +16,7 @@ function Login () {
 
 return(
 <div className="login-body">
+<Navbar/>
     <div className='d-flex'>
         <div className='login-card'/>
         <div className='form section container center d-flex flex-column align-items-center login' style={{ width: '55%', maxHeight: '100vh' }}>

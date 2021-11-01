@@ -3,6 +3,8 @@ import axios from 'axios'; //http requests by promises
 import '../styles/Register.css'
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
+import  Navbar  from './Navbar';
+
 
 const baseURL = 'http://localhost:8080/api/register'
 
@@ -64,7 +66,7 @@ function Register() {
 
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"></link>
 
-
+            <Navbar/>
 
         <div className="container">
 
