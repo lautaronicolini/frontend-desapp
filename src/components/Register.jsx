@@ -21,6 +21,7 @@ function Register() {
     
 
     const handleChange =(ev) => {
+        console.log("Change event - ",ev.target.name)
     if (ev.target.name === "name") setName(ev.target.value);
     if (ev.target.name === "lastName") setLastName(ev.target.value);
     if (ev.target.name === "email") setEmail(ev.target.value);
@@ -77,12 +78,15 @@ function Register() {
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input name="" 
-                class="form-control" 
+                <input
+                className="input-box" 
+                name= "name" 
+                autoComplete="name" 
                 placeholder="Name" 
                 type="text"
                 minLength="1"
                 maxLength="30" 
+                value = {name}
                 onChange= {handleChange}
                 required/>
                 
@@ -92,12 +96,15 @@ function Register() {
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input name=""
-                class="form-control"
+                <input 
+                className="input-box" 
+                name= "lastName" 
+                autoComplete="lastName" 
                 placeholder="Last Name"
                 type="text"
                 minLength="1"
                 maxLength="30" 
+                value = {lastName}
                 onChange= {handleChange}
                 required/>
             </div>  
@@ -106,10 +113,13 @@ function Register() {
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                 </div>
-                <input name=""
-                class="form-control"
+                <input 
+                className="input-box" 
+                name= "email" 
+                autoComplete="email" 
                 placeholder="Emai"
                 type="email"
+                value = {email}
                 onChange= {handleChange}
                 required/>
             </div>
@@ -118,29 +128,49 @@ function Register() {
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-building"></i> </span>
                 </div>
-                    <input name=""
-                    class="form-control"
+                    <input 
+                    className="input-box" 
+                    name= "address" 
+                    autoComplete="address" 
                     placeholder="Address"
                     type="text"
                     minLength="0"
                     maxLength="30" 
                     placeholder="Address"
+                    value = {address}
                     onChange= {handleChange}
                     required/>
                 
+            </div>
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input
+                className="input-box" 
+                name= "password" 
+                autoComplete="password" 
+                placeholder="Create password"
+                type="password"
+                value = {password}
+                onChange= {handleChange}
+                required/>
             </div>
             
                 <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> </span>
                 </div>
-                <input name=""
-                class="form-control"
-                placeholder="CVU"
+                <input 
+                className="input-box" 
+                name= "CVU" 
+                autoComplete="CVU" 
                 type="text"
                 minLength="22" 
                 maxLength="22" 
                 placeholder="CVU (22 digits)"
+                value = {CVU}
                 onChange= {handleChange}
                 required/>
             </div>        
@@ -149,27 +179,21 @@ function Register() {
                 <div class="input-group-prepend">
                     <span class="input-group-text"> </span>
                 </div>
-                <input name=""
-                class="form-control"
+                <input 
+                className="input-box" 
+                name= "walletAddress" 
+                autoComplete="walletAddress" 
                 placeholder="Wallet Address"
                 type="text"
                 minLength="8"  
                 maxLength="8" 
                 placeholder="Crypto wallet address"
+                value = {walletAddress}
                 onChange= {handleChange}
                 required/>
             </div>
             
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input class="form-control"
-                placeholder="Create password"
-                type="password"
-                onChange= {handleChange}
-                required/>
-            </div>
+
 
 
             <div class="form-group">

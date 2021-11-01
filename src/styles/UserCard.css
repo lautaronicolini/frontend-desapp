@@ -1,0 +1,13 @@
+.cryptoCard { 
+    width: 20%;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin: 8px;
+}
+
+.card-body{
+    
+}
