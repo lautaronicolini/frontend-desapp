@@ -3,10 +3,12 @@ import axios from 'axios'; //http requests by promises
 import '../styles/Register.css'
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
+import  Navbar  from './Navbar';
+
 
 const baseURL = 'http://localhost:8080/api/register'
 
-function Register () {
+function Register() {
 
      
     const [name,setName]= useState('');
@@ -21,6 +23,7 @@ function Register () {
     
 
     const handleChange =(ev) => {
+        console.log("Change event - ",ev.target.name)
     if (ev.target.name === "name") setName(ev.target.value);
     if (ev.target.name === "lastName") setLastName(ev.target.value);
     if (ev.target.name === "email") setEmail(ev.target.value);
@@ -29,6 +32,7 @@ function Register () {
     if (ev.target.name === "CVU") setCVU(ev.target.value);
     if (ev.target.name === "walletAddress") setWA(ev.target.value);
     }
+    
     const handleSubmit = (ev) =>{ 
         console.log("handling submit")
     axios.post(
@@ -39,7 +43,7 @@ function Register () {
         email: email, 
         password: password,
         address: address, 
-        CVU: CVU,
+        cvu: CVU,
         walletAddress: walletAddress
         }    
     )
@@ -55,113 +59,174 @@ function Register () {
     }
 
     return(
-    <div className="register">
+    <div>
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-        <div className="register-body">
-            <div className= "form-block">
-                <h1 className= "create-account-title">Create an account</h1>
-                <form onSubmit={handleSubmit} className="register-form">
-                                               
-                    <label className="input_id">
-                        <input type="text"
-                        className="input-box" 
-                        name= "name" 
-                        autoComplete="name"
-                        placeholder="Name"
-                        minLength="10"
-                        maxLength="30" 
-                        value= {name}
-                        onChange= {handleChange}
-                        required/>
-                    </label>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"></link>
 
-                    <label className="input_id">
-                        <input type="text"
-                        className="input-box" 
-                        name= "lastName" 
-                        autoComplete="lastName"
-                        placeholder="Last Name"
-                        minLength="10"
-                        maxLength="30" 
-                        value= {lastName}
-                        onChange= {handleChange}
-                        required/>
-                    </label>
+            <Navbar/>
 
-                    <label className="input_id">
-                        <input type="email"
-                        className="input-box"  
-                        name= "email" 
-                        autoComplete="email"
-                        placeholder="Email"
-                        value= {email}
-                        onChange= {handleChange}
-                        required/>
-                    </label>
+        <div className="container">
 
-                    <label className="input_id">
-                        <input type="address"
-                        className="input-box" 
-                        name= "address" 
-                        autoComplete="address"   
-                        minLength="0"
-                        maxLength="30" 
-                        placeholder="Address"
-                        value= {address}
-                        onChange= {handleChange}
-                        required/>
-                    </label>
+        <div class="card bg-light">
+        <article class="card-body mx-auto">
+            <h4 class="card-title mt-3 text-center">Create Account</h4>
+            <p class="text-center">Get started with your free account</p>
 
-                    <label className="input_id">
-                        <input type="CVU"                                 className="input-box" 
-                        name= "CVU" 
-                        autoComplete="CVU"   
-                        minLength="22" 
-                        maxLength="22" 
-                        placeholder="CVU (22 digits)"
-                        value= {CVU}
-                        onChange= {handleChange}
-                        required/>
-                    </label>
-
-                    <label className="input_id">
-                        <input type="walletAddress"                                className="input-box"  
-                        name= "walletAddress" 
-                        autoComplete="walletAddress"  
-                        minLength="8"  
-                        maxLength="8" 
-                        placeholder="Crypto wallet address"
-                        value= {walletAddress}
-                        onChange= {handleChange}
-                        required/>
-                    </label>
-
-                                        
-                    <label className="input_id">
-                        <input type="password"                                className="input-box"  
-                        name= "password"  
-                        autoComplete="password" 
-                        placeholder="Your new password"
-                        value= {password}
-                        onChange= {handleChange}
-                        required/>
-                    </label>
-
-                    <div>
-                        <button type="submit" className="btn btn-danger" autoComplete="off">Register</button>
-                    </div> 
-                </form>
-
-
-        
+            <form onSubmit={handleSubmit} className="register-form">
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input
+                className="input-box" 
+                name= "name" 
+                autoComplete="name" 
+                placeholder="Name" 
+                type="text"
+                minLength="1"
+                maxLength="30" 
+                value = {name}
+                onChange= {handleChange}
+                required/>
+                
+            </div> 
+            
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input 
+                className="input-box" 
+                name= "lastName" 
+                autoComplete="lastName" 
+                placeholder="Last Name"
+                type="text"
+                minLength="1"
+                maxLength="30" 
+                value = {lastName}
+                onChange= {handleChange}
+                required/>
+            </div>  
+            
+                <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                <input 
+                className="input-box" 
+                name= "email" 
+                autoComplete="email" 
+                placeholder="Emai"
+                type="email"
+                value = {email}
+                onChange= {handleChange}
+                required/>
             </div>
-        </div>
-        <ToastContainer
-            position="top-right"
-            hideProgressBar={true}
-             />
+        
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                </div>
+                    <input 
+                    className="input-box" 
+                    name= "address" 
+                    autoComplete="address" 
+                    placeholder="Address"
+                    type="text"
+                    minLength="0"
+                    maxLength="30" 
+                    placeholder="Address"
+                    value = {address}
+                    onChange= {handleChange}
+                    required/>
+                
+            </div>
 
-    </div> );
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input
+                className="input-box" 
+                name= "password" 
+                autoComplete="password" 
+                placeholder="Create password"
+                type="password"
+                value = {password}
+                onChange= {handleChange}
+                required/>
+            </div>
+            
+                <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> </span>
+                </div>
+                <input 
+                className="input-box" 
+                name= "CVU" 
+                autoComplete="CVU" 
+                type="text"
+                minLength="22" 
+                maxLength="22" 
+                placeholder="CVU (22 digits)"
+                value = {CVU}
+                onChange= {handleChange}
+                required/>
+            </div>        
+            
+                <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> </span>
+                </div>
+                <input 
+                className="input-box" 
+                name= "walletAddress" 
+                autoComplete="walletAddress" 
+                placeholder="Wallet Address"
+                type="text"
+                minLength="8"  
+                maxLength="8" 
+                placeholder="Crypto wallet address"
+                value = {walletAddress}
+                onChange= {handleChange}
+                required/>
+            </div>
+            
+
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Create Account </button>
+            </div> 
+
+            <p class="text-center">Already have an account? <a href="/login">Log In</a> </p>                                                                 
+        </form>
+        </article>
+
+        <br/>
+        <article class="bg-secondary mb-3">  
+        <div class="card-body text-center">
+            <h4 class="text-white mt-3">CryptoP2P</h4>
+        <p class="h5 text-white">Start operating now  <br/> FAQ</p>   <br/>
+
+        </div>
+        <br/><br/>
+        </article>
+        </div> 
+                    
+        <ToastContainer
+                    position="top-right"
+                    hideProgressBar={true}
+                    />
+        </div>
+
+
+    </div>
+    
+    );
 
 }
 

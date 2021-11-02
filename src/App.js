@@ -4,7 +4,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Register from './components/Register';
 import CryptoCardList from './components/CryptoCardList';
 import TransactionDetails from './components/TransactionDetails';
-
+import Login from './components/Login'
+import Users from './components/Users';
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
             <Route path="/register" component={Register}/>
             <Route path="/crypto" component={CryptoCardList}/>
             <Route path="/transaction" component={TransactionDetails}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/users" component={Users}/>
           </Switch>
         </BrowserRouter>
       </div>

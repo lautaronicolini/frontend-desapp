@@ -1,45 +1,25 @@
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}
 
-/*https://st2.depositphotos.com/1076754/5401/v/450/depositphotos_54010673-stock-illustration-cinema-with-white-screen-and.jpg*/
-/*DARTH https://thewallpaper.co//wp-content/uploads/2016/10/1280x1024-movies-wallpapers-hd-desktop-wallpapers-cool-images-hd-download-apple-background-wallpapers-windows-colourfull-lovely-wallpapers-1280x1024.jpg
-*/
-
-/*https://www.readersdigest.ca/wp-content/uploads/2012/09/movies-made-great-white-north.jpg*/
-
-.register-body{
-    background-color: rgba(32, 18, 92, 0.397);
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    
-    font-size: 16px;
-    margin:auto;
-    min-height: 600px;
-    min-width: 380px;
-    padding-left: 50px;
-    padding-right: 68px;
-    padding-top: 20px;
-    text-size-adjust: 100%;
-    width: 550px;
- 
-    }
-    
-.register-form{
-    box-sizing: content-box;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
+.container {
     margin: auto;
-    -webkit-box-direction: normal;
-    -webkit-box-orient: vertical;
-    
-    }
-
-    .input-box{
-        width: 400px;
-        height: 20px;
-        margin-top: 6px;
-        margin-bottom: 6px;
-        color: black;
-    
-    }
+}
