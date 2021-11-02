@@ -17,9 +17,9 @@ export default class CryptoCardList extends React.Component {
 
   render() {
     return (
-      <ul>
-        { this.state.cryptos.map(crypto => <li><CryptoCard symbol={crypto.symbol} price={crypto.price}/></li>)}
-      </ul>
+      <div className="flexbox">
+        { this.state.cryptos.map(crypto => <CryptoCard symbol={crypto.symbol} price={crypto.price} dateOfPrice={crypto.dateOfPrice}/>)}
+      </div>
     )
   }
 }
