@@ -21,7 +21,6 @@ class Users extends React.Component{
 render (){
     return (
     <div className="users">
-        <Navbar/>
         <div className="users-container">
         <h1 class="user-title">Users</h1>
 

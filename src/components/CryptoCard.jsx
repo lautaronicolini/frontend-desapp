@@ -1,4 +1,8 @@
 import '../styles/CryptoCard.css'
+import { useHistory } from 'react-router-dom';
+
+
+redirectTo()
 
 function CryptoCard (props) {
     return (
@@ -10,8 +14,8 @@ function CryptoCard (props) {
                 <p>{props.dateOfPrice}</p>    
             </div>
             <div>
-                <button>Comprar</button>
-                <button>Vender</button>
+                <button onClick={history.push("/buyTransaction")}>Buy</button>
+                <button onClick={history.push("/sellTransaction")}>Sell</button>
             </div>
         </div>
     </div>

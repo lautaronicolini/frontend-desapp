@@ -66,19 +66,18 @@ function Register() {
 
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"></link>
 
-            <Navbar/>
 
         <div className="container">
 
-        <div class="card bg-light">
-        <article class="card-body mx-auto">
-            <h4 class="card-title mt-3 text-center">Create Account</h4>
-            <p class="text-center">Get started with your free account</p>
+        <div className="card bg-light">
+        <article className="card-body mx-auto">
+            <h4 className="card-title mt-3 text-center">Create Account</h4>
+            <p className="text-center">Get started with your free account</p>
 
             <form onSubmit={handleSubmit} className="register-form">
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            <div className="form-group input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text"> <i className="fa fa-user"></i> </span>
                 </div>
                 <input
                 className="input-box" 
@@ -94,9 +93,9 @@ function Register() {
                 
             </div> 
             
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            <div className="form-group input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text"> <i className="fa fa-user"></i> </span>
                 </div>
                 <input 
                 className="input-box" 
@@ -111,9 +110,9 @@ function Register() {
                 required/>
             </div>  
             
-                <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                <div className="form-group input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text"> <i className="fa fa-envelope"></i> </span>
                 </div>
                 <input 
                 className="input-box" 
@@ -126,9 +125,9 @@ function Register() {
                 required/>
             </div>
         
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+            <div className="form-group input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text"> <i className="fa fa-building"></i> </span>
                 </div>
                     <input 
                     className="input-box" 
@@ -145,9 +144,9 @@ function Register() {
                 
             </div>
 
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            <div className="form-group input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
                 </div>
                 <input
                 className="input-box" 
@@ -160,9 +159,9 @@ function Register() {
                 required/>
             </div>
             
-                <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> </span>
+                <div className="form-group input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text"> </span>
                 </div>
                 <input 
                 className="input-box" 
@@ -177,9 +176,9 @@ function Register() {
                 required/>
             </div>        
             
-                <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> </span>
+                <div className="form-group input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text"> </span>
                 </div>
                 <input 
                 className="input-box" 
@@ -198,19 +197,19 @@ function Register() {
 
 
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Create Account </button>
+            <div className="form-group">
+                <button type="submit" className="btn btn-primary btn-block"> Create Account </button>
             </div> 
 
-            <p class="text-center">Already have an account? <a href="/login">Log In</a> </p>                                                                 
+            <p className="text-center">Already have an account? <a href="/login">Log In</a> </p>                                                                 
         </form>
         </article>
 
         <br/>
-        <article class="bg-secondary mb-3">  
-        <div class="card-body text-center">
-            <h4 class="text-white mt-3">CryptoP2P</h4>
-        <p class="h5 text-white">Start operating now  <br/> FAQ</p>   <br/>
+        <article className="bg-secondary mb-3">  
+        <div className="card-body text-center">
+            <h4 className="text-white mt-3">CryptoP2P</h4>
+        <p className="h5 text-white">Start operating now  <br/> FAQ</p>   <br/>
 
         </div>
         <br/><br/>
