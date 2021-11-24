@@ -6,6 +6,7 @@ import CryptoCardList from './components/CryptoCardList';
 import TransactionDetails from './components/TransactionDetails';
 import Login from './components/Login'
 import Users from './components/Users';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
