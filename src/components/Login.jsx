@@ -1,86 +1,62 @@
 
 
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import axios from 'axios'; //http requests by promises
 import '../styles/Login.css'
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import  Navbar  from './Navbar';
 import { useHistory } from 'react-router-dom';
 
-
-
 const baseURL = 'http://localhost:8080/api/authenticate' //endpoint of backend API
 
-function Login (props) {
-    const history = useHistory();
-    const [email,setEmail]= useState('');
-    const [password,setPassword]= useState('');
+class Login extends Component {
 
- const handleChange =(ev) => {
-        console.log("Change event - ",ev.target.name, ev.target.value)
-        console.log("Props - ",props)
-    if (ev.target.name === "email") setEmail(ev.target.value);
-    if (ev.target.name === "password") setPassword(ev.target.value);
+    constructor(){
+        super()
+        this.state = {username: "", password: ""}
+        this.loginUser = this.loginUser.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+    }
+    
+    loginUser(){
+        axios.post(baseURL, {
+            username: this.state.username,
+            password: this.state.password
+        })
+        .then(res => {
+            const cryptos = res.data;
+            this.setState({ cryptos });
+        })
     }
 
-    const handleSubmit = (ev) =>{ 
-        console.log("handling submit")
-        console.log(email)
-    axios.post(
-        baseURL,
-        {
-        username: email, 
-        password: password
-        },
-        { headers: {'Content-Type': 'application/json'}}
-    )
-    .then(response=>{
-        console.log(props,"props")
-        const token = response.data.access;
-        localStorage.setItem("SavedToken", token);
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        console.log('token en app: ', token, ' ')
-
-        history.push('/users')
-
-        }
-    )
-    .catch ( error => {
-    console.log(error)
-        toast.error("Incorrect credentials")
-    })
-
-    ev.preventDefault();
+    handleChange(e){
+        this.setState({[e.target.name] : e.target.value})
     }
 
-return(
-<div className="login-body">
-    <form onSubmit={handleSubmit} className="login-form">
-
-        <div className='d-flex'>
-
-            <div className='login-card'/>
-
-            <div className='form section container center d-flex flex-column align-items-center login' style={{ width: '55%', maxHeight: '100vh' }}>
-                <h1>Login to your account</h1>
-                    <input className="login-input" type='text' name='email' placeholder='Email' onChange={handleChange}/>
-                    <input className="login-input" type='password' name='password' placeholder='Password' onChange={handleChange}/>
+    render(){
+        return(
+        <div className="login-body">
+            <Navbar/>
+            <div className='d-flex'>
+                <div className='login-card'/>
+                <div className='form section container center d-flex flex-column align-items-center login' style={{ width: '55%', maxHeight: '100vh' }}>
+                    <h1>Login to your account</h1>
+                    <input onChange={this.handleChange} className="login-input" type='text' name='username' placeholder='Email'/>
+                    <input onChange={this.handleChange} className="login-input" type='password' name='password' placeholder='Password'/>
                     <p> Don't have an account?</p>  <Link to="/register">Sign-up here</Link>
-                <button>Log In</button>
+                    <button onClick={this.loginUser}>Log In</button>
+                </div>
             </div>
-        </div>
-        
-    </form>
-    <ToastContainer
+            <ToastContainer
                     position="top-right"
                     hideProgressBar={true}
                     />
-</div>
-)
-
+        </div>
+        )
+    }
 }
 
-export default Login;
+export default Login

@@ -11,12 +11,9 @@ import Users from './components/Users';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [loggedIn, setLogState] = useState(false);
-  const [token, setToken] = useState('');
-
- 
   return (
     <div className="main-page">
       <div className="content">
@@ -25,6 +22,7 @@ function App() {
           <Switch>
          
           <Route exact path="/"  component={Login}/>
+          <Route exact path="/login"  component={Login}/>
             <Route exact path="/register"  component={Register}/>
             <Route exact path="/crypto"  component={CryptoCardList}/>
             <Route exact path="/buyTransaction" component={BuyTransactionDetails}/>
