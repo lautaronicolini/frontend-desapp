@@ -16,14 +16,7 @@ function App() {
   const [loggedIn, setLogState] = useState(false);
   const [token, setToken] = useState('');
 
-  const handleLogin = (data) => {
-    setToken(data);
-    localStorage.setItem("SavedToken", token);
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    setLogState(true);
-    console.log('token en app: ', token, ' ',loggedIn)
-  }
-
+ 
   return (
     <div className="main-page">
       <div className="content">
@@ -31,15 +24,12 @@ function App() {
         <BrowserRouter>
           <Switch>
          
-          <Route exact path="/" loggedIn= {loggedIn} handleLogin={handleLogin} component={Login}/>
-           <Route path='/login'>
-            <Login handleLogin={handleLogin} loggedIn={loggedIn} />
-            </Route>
-            <Route exact path="/register" loggedIn= {loggedIn} handleLogin={handleLogin} component={Register}/>
-            <Route exact path="/crypto"  loggedIn= {loggedIn} token={token} component={CryptoCardList}/>
-            <Route exact path="/buyTransaction" loggedIn= {loggedIn} token={token} component={BuyTransactionDetails}/>
-            <Route exact path="/sellTransaction" loggedIn= {loggedIn} token={token} component={SellTransactionDetails}/>
-            <Route exact path="/users"  loggedIn= {loggedIn} token={token} component={Users}/>
+          <Route exact path="/"  component={Login}/>
+            <Route exact path="/register"  component={Register}/>
+            <Route exact path="/crypto"  component={CryptoCardList}/>
+            <Route exact path="/buyTransaction" component={BuyTransactionDetails}/>
+            <Route exact path="/sellTransaction" component={SellTransactionDetails}/>
+            <Route exact path="/users" component={Users}/>
             <Route  path="*" component={NotFound} />
           </Switch>
         </BrowserRouter>

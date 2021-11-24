@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 
 
 
-const baseURL = 'http://localhost:8080/authenticate' //endpoint of backend API
+const baseURL = 'http://localhost:8080/api/authenticate' //endpoint of backend API
 
 function Login (props) {
     const history = useHistory();
@@ -25,7 +25,7 @@ function Login (props) {
     if (ev.target.name === "email") setEmail(ev.target.value);
     if (ev.target.name === "password") setPassword(ev.target.value);
     }
-    
+
     const handleSubmit = (ev) =>{ 
         console.log("handling submit")
         console.log(email)
@@ -39,7 +39,10 @@ function Login (props) {
     )
     .then(response=>{
         console.log(props,"props")
-        props.handleLogin( response.data.access);
+        const token = response.data.access;
+        localStorage.setItem("SavedToken", token);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        console.log('token en app: ', token, ' ')
 
         history.push('/users')
 
@@ -52,7 +55,6 @@ function Login (props) {
 
     ev.preventDefault();
     }
-
 
 return(
 <div className="login-body">
