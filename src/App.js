@@ -11,18 +11,24 @@ import Users from './components/Users';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+class App extends React.Component {
+  constructor(props){
+    super(props);
+  }
 
-function App() {
+  render(){
   return (
     <div className="main-page">
       <div className="content">
         <Navbar/>
         <BrowserRouter>
           <Switch>
-         
-          <Route exact path="/"  component={Login}/>
-          <Route exact path="/login"  component={Login}/>
+          <Route exact path="/" render ={ props => (
+            <Login {...this.props}  />
+            )}/>
+          <Route exact path="/login"  render ={ props => (
+            <Login {...this.props}  />
+            )}/>
             <Route exact path="/register"  component={Register}/>
             <Route exact path="/crypto"  component={CryptoCardList}/>
             <Route exact path="/buyTransaction" component={BuyTransactionDetails}/>
@@ -35,5 +41,5 @@ function App() {
     </div>
   );
 }
-
+}
 export default App;

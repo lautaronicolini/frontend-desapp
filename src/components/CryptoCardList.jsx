@@ -4,7 +4,7 @@ import CryptoCard from './CryptoCard';
 import  Navbar  from './Navbar';
 
 
-const baseURL = 'http://localhost:8080/crypto/prices'
+const baseURL = 'http://localhost:8080/api/crypto/prices'
 
 export default class CryptoCardList extends React.Component {
     state = { cryptos: [] }
