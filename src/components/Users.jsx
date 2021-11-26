@@ -10,7 +10,11 @@ class Users extends React.Component{
     state = { users: [] }
 
     componentDidMount() {
-        axios.get(baseURL)
+      const headers = {
+        'Authorization': 'Bearer '+ localStorage.getItem('SavedToken')
+      }
+      
+     axios.get(baseURL, { headers: headers})
           .then(res => {
             const users = res.data;
             this.setState({ users });
@@ -21,7 +25,6 @@ class Users extends React.Component{
 render (){
     return (
     <div className="users">
-        <Navbar/>
         <div className="users-container">
         <h1 class="user-title">Users</h1>
 

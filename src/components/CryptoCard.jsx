@@ -3,7 +3,7 @@ import '../styles/CryptoCard.css'
 import axios from 'axios'
 import {toast, ToastContainer} from "react-toastify";
 
-const baseURL = 'http://localhost:8080/criptoP2P_API/transaction/create'
+const baseURL = 'http://localhost:8080/api/transaction/create'
 
 
 class CryptoCard extends Component {    

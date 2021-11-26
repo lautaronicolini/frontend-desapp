@@ -4,7 +4,7 @@ import '../styles/Details.css'
 
 const baseURL = 'http://localhost:8080/criptoP2P_API/transaction/details?id=1'
 
-export default class TransactionDetails extends React.Component {
+export default class SellTransactionDetails extends React.Component {
 
     state = { details: {} }
 
@@ -49,7 +49,7 @@ export default class TransactionDetails extends React.Component {
                     <p>{this.state.details.userReputation}</p>
                 </div>
                 <div>
-                    <button>Realicé la transferencia</button>
+                    <button>Transfer</button>
                 </div>
             </div>
         )

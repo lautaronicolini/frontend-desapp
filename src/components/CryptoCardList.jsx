@@ -1,15 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 import CryptoCard from './CryptoCard';
-import  Navbar  from './Navbar';
 
-const baseURL = 'http://localhost:8080/criptoP2P_API/crypto/prices'
+const baseURL = 'http://localhost:8080/api/crypto/prices'
 
 export default class CryptoCardList extends React.Component {
     state = { cryptos: [] }
 
    componentDidMount() {
-    axios.get(baseURL)
+     //TODO if not authenticated -- props.redirecttoLogin
+     console.log("saved token", localStorage.getItem('SavedToken'))
+     const headers = {
+       'Authorization': 'Bearer '+ localStorage.getItem('SavedToken'),
+       'Content-Type': 'application/json'
+      }
+    axios.get(baseURL, { headers: headers})
       .then(res => {
         const cryptos = res.data;
         this.setState({ cryptos });
@@ -19,7 +24,6 @@ export default class CryptoCardList extends React.Component {
   render() {
     return (
     <div>
-      <Navbar/>
       <div className="flexbox">
         { this.state.cryptos.map(crypto => <CryptoCard symbol={crypto.symbol} price={crypto.price} dateOfPrice={crypto.dateOfPrice}/>)}
       </div>
