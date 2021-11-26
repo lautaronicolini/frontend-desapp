@@ -40,6 +40,7 @@ function Login () {
             console.log("successful request -",res.data)
         const token = res.data.token;
         localStorage.setItem("SavedToken", token)
+        localStorage.setItem("user", email)
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         history.push('/crypto')
 

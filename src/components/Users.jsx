@@ -3,32 +3,47 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserCard from './UserCard';
 import  Navbar  from './Navbar';
+import { useHistory } from 'react-router-dom';
+
 
 const baseURL = 'http://localhost:8080/api/users'
 
-class Users extends React.Component{
-    state = { users: [] }
+function Users() {
 
-    componentDidMount() {
+    const history = useHistory();
+    const [users,setUsers]= useState([]);
+
+
+    useEffect(()=>{
+      const token = localStorage.getItem('SavedToken')
+
+      if(token==null){
+        history.push('/login')
+      }
+
+      else{
       const headers = {
-        'Authorization': 'Bearer '+ localStorage.getItem('SavedToken')
+        'Authorization': 'Bearer '+ token
       }
       
      axios.get(baseURL, { headers: headers})
           .then(res => {
             const users = res.data;
-            this.setState({ users });
+            setUsers(users);
             console.log(users)
           })
-      }
+          .catch(res=>
+            console.log(res)
+          )}
+    }, [])
     
-render (){
+    
     return (
     <div className="users">
         <div className="users-container">
         <h1 class="user-title">Users</h1>
 
-            { this.state.users.map(user =>
+            { users.map(user =>
               
               <UserCard key={user.id} user={user}/>)}
         </div>
@@ -36,6 +51,6 @@ render (){
     </div>
     )
   }
-}
+
 
  export default Users;

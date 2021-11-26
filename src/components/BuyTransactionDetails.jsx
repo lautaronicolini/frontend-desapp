@@ -4,7 +4,7 @@ import '../styles/Details.css'
 
 const baseURL = 'http://localhost:8080/transaction/details?id=1'
 
-export default class BuyTransactionDetails extends React.Component {
+export default class TransactionDetails extends React.Component {
 
     state = { details: {} }
 

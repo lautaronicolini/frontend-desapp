@@ -16,14 +16,22 @@ class CryptoCard extends Component {
     }
     
     createTransaction(){
+        const token = localStorage.getItem('SavedToken')
+
+      const headers = {
+        'Authorization': 'Bearer '+ token
+      }
+        console.log(this.state)
         axios.post(baseURL, {
             crypto: this.props.symbol,
             operationType: this.state.operationType,
             nominalAmount: 100,
             unitPriceARS: this.props.price,
-            creatorUser: "myemail@gmail.com"
-        })
+            creatorUser: localStorage.getItem('user')
+        }, 
+        { headers: headers})
         .then(res => {
+            console.log(res.data)
             const cryptos = res.data;
             this.setState({ cryptos });
         })
