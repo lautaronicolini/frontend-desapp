@@ -9,7 +9,10 @@ export default class BuyTransactionDetails extends React.Component {
     state = { details: {} }
 
     componentDidMount() {
-        axios.get(baseURL)
+        const headers = {
+            'Authorization': 'Bearer '+ localStorage.getItem('SavedToken'),
+           }
+         axios.get(baseURL, { headers: headers})
           .then(res => {
             const details = res.data;
             this.setState({ details });

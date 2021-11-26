@@ -4,13 +4,15 @@ import '../styles/Register.css'
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import  Navbar  from './Navbar';
+import { useHistory } from 'react-router-dom';
 
 
 const baseURL = 'http://localhost:8080/api/register'
 
 function Register() {
 
-     
+    const history = useHistory();
+
     const [name,setName]= useState('');
     const [lastName,setLastName]= useState('');
     const [email,setEmail]= useState('');
@@ -47,8 +49,10 @@ function Register() {
         walletAddress: walletAddress
         }    
     )
-    .then(success=>{
-        toast.success("Successfully registered !")}
+    .then(res=>{   console.log("successful request -",res.data)
+    toast.success("user registered")
+    history.push('/login')
+    }
     )
     .catch ( error => {
     console.log(error)

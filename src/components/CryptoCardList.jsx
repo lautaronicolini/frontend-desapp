@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import CryptoCard from './CryptoCard';
-import  Navbar  from './Navbar';
-
 
 const baseURL = 'http://localhost:8080/api/crypto/prices'
 
@@ -10,16 +8,16 @@ export default class CryptoCardList extends React.Component {
     state = { cryptos: [] }
 
    componentDidMount() {
-    if(localStorage.getItem('Token')===null) {
-      localStorage.setItem('Token', this.props.token)
-        }
-    var token = localStorage.getItem('Token') 
-
-    axios.get(baseURL, { headers:{ Authentication:'Bearer ' + token }})
+     //TODO if not authenticated -- props.redirecttoLogin
+     console.log("saved token", localStorage.getItem('SavedToken'))
+     const headers = {
+       'Authorization': 'Bearer '+ localStorage.getItem('SavedToken'),
+       'Content-Type': 'application/json'
+      }
+    axios.get(baseURL, { headers: headers})
       .then(res => {
         const cryptos = res.data;
         this.setState({ cryptos });
-      
       })
   }
 

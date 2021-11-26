@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import '../styles/Details.css'
 
-const baseURL = 'http://localhost:8080/transaction/details?id=1'
+const baseURL = 'http://localhost:8080/criptoP2P_API/transaction/details?id=1'
 
 export default class SellTransactionDetails extends React.Component {
 
