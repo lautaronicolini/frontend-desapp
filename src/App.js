@@ -7,6 +7,7 @@ import TransactionDetails from './components/TransactionDetails';
 import Login from './components/Login'
 import Users from './components/Users';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TransactionList from './components/TransactionList';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/register" component={Register}/>
             <Route path="/crypto" component={CryptoCardList}/>
             <Route path="/transaction" component={TransactionDetails}/>
+            <Route path="/transaction/all" component={TransactionList}/>
             <Route path="/login" component={Login}/>
             <Route path="/users" component={Users}/>
           </Switch>
