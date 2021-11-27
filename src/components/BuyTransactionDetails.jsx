@@ -2,21 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import '../styles/Details.css'
 
-const baseURL = 'http://localhost:8080/transaction/details'
+const baseURL = 'http://localhost:8080/transaction/details?id=1'
 
 export default class BuyTransactionDetails extends React.Component {
 
     state = { details: {} }
 
     componentDidMount() {
-        const headers = {
-            'Authorization': 'Bearer '+ localStorage.getItem('SavedToken'),
-           }
-         axios.get(baseURL+ this.props.id, { headers: headers})
+        axios.get(baseURL)
           .then(res => {
             const details = res.data;
             this.setState({ details });
-            
           })
           console.log(this.state)
       }

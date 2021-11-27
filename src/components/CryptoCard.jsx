@@ -15,6 +15,7 @@ function CryptoCard(props){
     let {symbol, price, dateOfPrice} = props 
 
     const [operationType, setOpType]= useState("NONE")
+    const [nominalAmount, setNomAmount]= useState(0)
     
     
     function createTransaction(){
@@ -27,7 +28,7 @@ function CryptoCard(props){
         axios.post(baseURL, {
             crypto: props.symbol,
             operationType: operationType,
-            nominalAmount: 100,
+            nominalAmount: nominalAmount,
             unitPriceARS: props.price,
             creatorUser: localStorage.getItem('user')
         }, 
@@ -47,17 +48,26 @@ function CryptoCard(props){
     }
 
 
+    function handleChange(e){
+        setNomAmount( e.target.value)
+    }
+
     return (
         <div className="cryptoCard">
             <div className="flexbox">
-                <div>
+                <div className="cryptoDataHalf">
                     <p className="symbol">{symbol}</p>
                     <p className="price">ARS {price}</p>
                     <p>{dateOfPrice}</p>    
                 </div>
-                <div>
-                    <button id="BUY" onClick={handleClick}>Comprar</button>
-                    <button id="SELL" onClick={handleClick}>Vender</button>
+                <div className="cryptoTransactionHalf">
+                    <div>
+                        <input onChange={handleChange} number id=""/>
+                    </div>
+                    <div>
+                        <button id="BUY" onClick={handleClick}>Comprar</button>
+                        <button id="SELL" onClick={handleClick}>Vender</button>
+                    </div>
                 </div>
             </div>
             <ToastContainer

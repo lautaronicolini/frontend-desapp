@@ -8,6 +8,8 @@ import BuyTransactionDetails from './components/BuyTransactionDetails';
 import SellTransactionDetails from './components/SellTransactionDetails';
 import Login from './components/Login'
 import Users from './components/Users';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import TransactionList from './components/TransactionList';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 
@@ -31,6 +33,7 @@ class App extends React.Component {
             )}/>
             <Route exact path="/register"  component={Register}/>
             <Route exact path="/crypto"  component={CryptoCardList}/>
+            <Route path="/transaction/all" component={TransactionList}/>
             <Route exact path="/buyTransaction" component={BuyTransactionDetails}/>
             <Route exact path="/sellTransaction" component={SellTransactionDetails}/>
             <Route exact path="/users" component={Users}/>

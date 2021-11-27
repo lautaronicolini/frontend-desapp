@@ -2,17 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import '../styles/Details.css'
 
-const baseURL = 'http://localhost:8080/api/transaction/details'
 
 export default class SellTransactionDetails extends React.Component {
 
     state = { details: {} }
 
     componentDidMount() {
-        console.log("props",this.props.location.state.details)
-        axios.get(baseURL, 
-            {id : this.props.location.state.details}
-            )
+        const baseURL = `http://localhost:8080/api/transaction/details?id=${this.props.location.state.details}`
+        axios.get(baseURL)
           .then(res => {
             const details = res.data;
             this.setState({ details });
