@@ -2,14 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import '../styles/Details.css'
 
-const baseURL = 'http://localhost:8080/criptoP2P_API/transaction/details?id=1'
+const baseURL = 'http://localhost:8080/api/transaction/details'
 
 export default class SellTransactionDetails extends React.Component {
 
     state = { details: {} }
 
     componentDidMount() {
-        axios.get(baseURL)
+        console.log("props",this.props.location.state.details)
+        axios.get(baseURL, 
+            {id : this.props.location.state.details}
+            )
           .then(res => {
             const details = res.data;
             this.setState({ details });

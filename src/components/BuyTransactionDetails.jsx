@@ -2,9 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import '../styles/Details.css'
 
-const baseURL = 'http://localhost:8080/transaction/details?id=1'
+const baseURL = 'http://localhost:8080/transaction/details'
 
-export default class TransactionDetails extends React.Component {
+export default class BuyTransactionDetails extends React.Component {
 
     state = { details: {} }
 
@@ -12,10 +12,11 @@ export default class TransactionDetails extends React.Component {
         const headers = {
             'Authorization': 'Bearer '+ localStorage.getItem('SavedToken'),
            }
-         axios.get(baseURL, { headers: headers})
+         axios.get(baseURL+ this.props.id, { headers: headers})
           .then(res => {
             const details = res.data;
             this.setState({ details });
+            
           })
           console.log(this.state)
       }
