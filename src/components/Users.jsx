@@ -1,8 +1,6 @@
-import ReactDOM from 'react-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserCard from './UserCard';
-import  Navbar  from './Navbar';
 import { useHistory } from 'react-router-dom';
 
 

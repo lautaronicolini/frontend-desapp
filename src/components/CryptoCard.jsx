@@ -14,7 +14,7 @@ function CryptoCard(props){
 
     let {symbol, price, dateOfPrice} = props 
 
-    const [operationType, setOpType]= useState("NONE")
+    const [operationType, setOpType]= useState("SELL")
     const [nominalAmount, setNomAmount]= useState(0)
     
     
@@ -34,9 +34,11 @@ function CryptoCard(props){
         }, 
         { headers: headers})
         .then(res => {
-            console.log(res.data)
-            toast.success("transaction created")
-            history.push('sellTransaction',{details: res.data})
+            console.log(res.data) //TODO redirect to transactions page
+            console.log(operationType)
+            toast.success("the transaction was created")
+
+           // history.push('/transactionDetails',{details: {id:res.data, opType:operationType}}) //passing props TODO remove opType(para que cuando redirija a la otra pag no muestre boton de buy or sell)
         }).catch(res=>{
             toast.error("the transaction could not be created")
         })
@@ -47,10 +49,11 @@ function CryptoCard(props){
          createTransaction()
     }
 
-
     function handleChange(e){
         setNomAmount( e.target.value)
     }
+
+
 
     return (
         <div className="cryptoCard">
@@ -62,7 +65,7 @@ function CryptoCard(props){
                 </div>
                 <div className="cryptoTransactionHalf">
                     <div>
-                        <input onChange={handleChange} number id=""/>
+                        <input onChange={handleChange} type="number" id=""/>
                     </div>
                     <div>
                         <button id="BUY" onClick={handleClick}>Comprar</button>
