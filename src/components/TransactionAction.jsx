@@ -9,18 +9,45 @@ export default class TransactionAction extends React.Component {
         details: {},
         paymentAddress:'',
         receivedConfirmation: false,
-        setConfirmation:false
+        setConfirmation:false,
      }
 
     componentDidMount() {
-        console.log("transactionAction props ",this.props.location.state)
+
+        console.log("transactionAction props ",this.props)
         this.setState({details: this.props.location.state})
 
         const token = localStorage.getItem('SavedToken')
-
         const headers = {
-          'Authorization': 'Bearer '+ token
-        }
+            'Authorization': 'Bearer '+ token
+          }
+
+          if(this.props.location.state.role==='Creator'){
+ 
+            const baseURL = `http://localhost:8080/api/transaction/details?id=${this.props.location.state.transactionId}`
+
+            axios.get(
+                baseURL, 
+                { headers: headers})
+                .then( res=>{
+                    console.log(res)
+                    this.setState(prevState => ({
+                        details: {                   // object that we want to update
+                            ...prevState.details,    // keep all other key-value pairs
+                            time: res.data.time,       // update the value of specific key
+                            cryptoValue: res.data.price,
+                            seller: res.data.sellerEmail,
+                            buyer: res.data.buyerEmail,
+                            operationType: res.data.operationType,
+                            paymentAddress:''
+                        }
+                    }))
+                }
+                )
+            }
+
+        if(this.props.location.state.role==='Applier'){
+ 
         const baseURL = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
         axios.get(
             baseURL, 
@@ -30,6 +57,7 @@ export default class TransactionAction extends React.Component {
             console.log("transaction applied ", res.data)
           })
       }
+    }
 
       handleConfirmation(){
 
@@ -76,17 +104,17 @@ export default class TransactionAction extends React.Component {
                                 <label><b>Total</b></label>
                                 <p><b>ARS ${this.state.details.price}</b></p>
                             </div>
-                            { /*If operation is Sell then show CVU to the buyer */}
+                            { /*If user is Seller then show wallet address */}
                             <div class="col">
-                            {this.state.details.operationType==="SELL"&&
+                            {this.state.details.seller===localStorage.getItem('user') &&
                             <div>
                                 <label>CVU a transferir</label>
                                 <p>{this.state.paymentAddress}</p>
                                 </div>}
                             </div>
-                            { /*If operation is Buy then show Wallet Address to the seller */}
+                            { /*If user is Buyer then show CVU to transfer to */}
                             <div class="col">
-                            {this.state.details.operationType==="BUY"&&
+                            {this.state.details.buyer===localStorage.getItem('user')&&
                             <div>
                                 <label>Dirección de billetera</label>
                                 <p>{this.state.paymentAddress}</p>

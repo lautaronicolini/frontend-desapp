@@ -34,7 +34,8 @@ export default class TransactionDetails extends React.Component {
         if (this.state.redirect) {
             return <Redirect to={{
                 pathname: '/transactionRequest',
-                state: this.state.details
+                state: this.state.details,
+                role:'Applier'
             }}/>
           }
              

@@ -33,7 +33,7 @@ const baseURL = 'http://localhost:8080/api/crypto/prices'
     return (
     <div>
       <div className="flexbox">
-        { cryptos.map(crypto => <CryptoCard key={crypto.symbol} symbol={crypto.symbol} price={crypto.price} dateOfPrice={crypto.dateOfPrice}/>)}
+        { cryptos.map(crypto => <CryptoCard key={crypto.symbol} symbol={crypto.symbol} price={crypto.price} time={crypto.dateOfPrice}/>)}
       </div>
     </div>
     )
