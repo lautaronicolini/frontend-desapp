@@ -5,7 +5,6 @@
     border-radius: 15px;
     box-sizing: border-box;
     margin: 8px;
-    width: 170px;
     padding: 8px 8px 8px 8px;
 }
 
@@ -28,19 +27,20 @@
 }
 
 button {
-    margin-right: 5px
+    margin: 5px
 }
 
 .cryptoDataHalf {
     border-color: black;
     border-width: 1px;
-    border-style: solid;
     border-radius: 15px;
     box-sizing: border-box;
+    margin: auto;
 }
 
 .cryptoTransactionHalf {
     right:0; 
     bottom: 0;
-    position:absolute;
+    padding: 7px;
+    margin:auto;
 }

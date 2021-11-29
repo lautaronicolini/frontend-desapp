@@ -1,46 +1,63 @@
-import React, { Component } from 'react'
 import '../styles/CryptoCard.css'
 import axios from 'axios'
 import {toast, ToastContainer} from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 
 const baseURL = 'http://localhost:8080/api/transaction/create'
 
 
-class CryptoCard extends Component {    
-    constructor(){
-        super()
-        this.state = {
-            operationType: "NONE",
-            nominalAmount: 0
-        }
-        this.createTransaction = this.createTransaction.bind(this)
-        this.handleClick = this.handleClick.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-    }
+function CryptoCard(props){    
+
+    let history = useHistory()
+
+    let {symbol, price, dateOfPrice} = props 
+
+    const [operationType, setOpType]= useState("SELL")
+    const [nominalAmount, setNomAmount]= useState(0)
+    const [showModal, setShowModal]= useState(0)
     
-    createTransaction(){
+    
+    
+    function createTransaction(){
+        const token = localStorage.getItem('SavedToken')
+
+      const headers = {
+        'Authorization': 'Bearer '+ token
+      }
+        console.log(operationType)
         axios.post(baseURL, {
-            crypto: this.props.symbol,
-            operationType: this.state.operationType,
-            nominalAmount: this.state.nominalAmount,
-            unitPriceARS: this.props.price,
-            creatorUser: "myemail@gmail.com"
-        })
+            crypto: props.symbol,
+            operationType: operationType,
+            nominalAmount: nominalAmount,
+            unitPriceARS: props.price,
+            creatorUser: localStorage.getItem('user')
+        }, 
+        { headers: headers})
         .then(res => {
-            toast.success("Transaction created!")
+            console.log(res.data)
+            console.log(operationType)
+            toast.success("the transaction was created")
+
+            
+           history.push('/transactionRequest',{transactionId:res.data, opType:operationType, role:'Creator', amount:nominalAmount, price:props.price, cryptoSymbol:props.symbol})
+        }).catch(res=>{
+            toast.error("the transaction could not be created")
         })
     }
 
-    handleClick(e){
-        this.setState({operationType: e.target.id}, () => {this.createTransaction()})
+    function handleClick(e){
+        setOpType(e.target.id)
+         createTransaction()
     }
 
-    handleChange(e){
-        this.setState({nominalAmount: e.target.value})
+    function handleChange(e){
+        setNomAmount( e.target.value)
     }
 
-render(){
-    let {symbol, price, dateOfPrice} = this.props 
+
+
     return (
         <div className="cryptoCard">
             <div className="flexbox">
@@ -51,17 +68,21 @@ render(){
                 </div>
                 <div className="cryptoTransactionHalf">
                     <div>
-                        <input onChange={this.handleChange} number id=""/>
+                        <input onChange={handleChange} type="number" id=""/>
                     </div>
                     <div>
-                        <button id="BUY" onClick={this.handleClick}>Comprar</button>
-                        <button id="SELL" onClick={this.handleClick}>Vender</button>
+                        <button id="BUY" onClick={handleClick}>Comprar</button>
+                        <button id="SELL" onClick={handleClick}>Vender</button>
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                    position="top-right"
+                    hideProgressBar={true}
+                    />
         </div>
         )
-    }
+    
 }
 
 export default CryptoCard

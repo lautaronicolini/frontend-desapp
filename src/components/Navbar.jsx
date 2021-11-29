@@ -10,7 +10,7 @@ function Navbar ()  {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item active">
-              <a className="nav-link" href="/crypto">Cryptos </a>
+              <a className="nav-link" href="/crypto">Create Transaction </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/users">Users</a>
@@ -22,10 +22,7 @@ function Navbar ()  {
               <a className="nav-link" href="/register">Register</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/buyTransaction">Buy</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/sellTransaction">Sell</a>
+              <a className="nav-link" href="/transaction/all">Active Transactions</a>
             </li>
 
           </ul>

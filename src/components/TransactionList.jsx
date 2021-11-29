@@ -1,28 +1,46 @@
-import React from 'react';
 import axios from 'axios';
-import CryptoCard from './CryptoCard';
-import  Navbar  from './Navbar';
+import TransactionDetails from './TransactionDetails';
+import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-const baseURL = 'http://localhost:8080/criptoP2P_API/transaction/all'
 
-export default class TransactionList extends React.Component {
-    state = { transactions: [] }
 
-    componentDidMount() {
-        axios.get(baseURL)
-        .then(res => {
-            const transactions = res.data;
-            this.setState({ transactions });
-        })
-    }
+const baseURL = 'http://localhost:8080/api/transaction/all'
 
-    render() {
-        return (
-            <div>
-                <div className="flexbox">
-                    { this.state.transactions.map(transaction => <CryptoCard symbol={crypto.symbol} price={crypto.price} dateOfPrice={crypto.dateOfPrice}/>)}
-                </div>
-            </div>
-        )
-    }
-}
+ function TransactionList (){
+
+  const history = useHistory()
+  const [transactions, setTransactions]= useState([])
+
+  useEffect(()=>{
+     const token =  localStorage.getItem('SavedToken')
+      if(token==null){
+        history.push('/login')
+      }
+     console.log("saved token", token)
+     const headers = {
+       'Authorization': 'Bearer '+ token
+      }
+    axios.get(baseURL, { headers: headers})
+      .then(res => {
+          console.log("transactions", res)
+        const transactions = res.data
+        setTransactions(transactions)
+      })
+    },[]
+  )
+
+  
+    return (
+    <div>
+        <h3>Active transactions</h3>
+        <ul class="list-group list-group-flush">
+        { transactions.map(t => <li class="list-group-item"><TransactionDetails key={t.id} details={t} /></li>)}
+      </ul>
+    </div>
+    )
+  }
+
+
+  export default TransactionList

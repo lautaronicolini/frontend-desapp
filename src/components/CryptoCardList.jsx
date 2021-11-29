@@ -1,33 +1,44 @@
-import React from 'react';
 import axios from 'axios';
 import CryptoCard from './CryptoCard';
+import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+
 
 const baseURL = 'http://localhost:8080/api/crypto/prices'
 
-export default class CryptoCardList extends React.Component {
-    state = { cryptos: [] }
+ function CryptoCardList (){
 
-   componentDidMount() {
-     //TODO if not authenticated -- props.redirecttoLogin
-     console.log("saved token", localStorage.getItem('SavedToken'))
+  const history = useHistory()
+  const [cryptos,setCryptos]= useState([])
+
+  useEffect(()=>{
+     const token =  localStorage.getItem('SavedToken')
+      if(token==null){
+        history.push('/login')
+      }
+     console.log("saved token", token)
      const headers = {
-       'Authorization': 'Bearer '+ localStorage.getItem('SavedToken'),
+       'Authorization': 'Bearer '+ token,
        'Content-Type': 'application/json'
       }
     axios.get(baseURL, { headers: headers})
       .then(res => {
-        const cryptos = res.data;
-        this.setState({ cryptos });
+        const cryptos = res.data
+        setCryptos(cryptos)
       })
-  }
+    },[]
+  )
 
-  render() {
+  
     return (
     <div>
       <div className="flexbox">
-        { this.state.cryptos.map(crypto => <CryptoCard symbol={crypto.symbol} price={crypto.price} dateOfPrice={crypto.dateOfPrice}/>)}
+        { cryptos.map(crypto => <CryptoCard key={crypto.symbol} symbol={crypto.symbol} price={crypto.price} time={crypto.dateOfPrice}/>)}
       </div>
     </div>
     )
   }
-}
+
+
+  export default CryptoCardList
+
