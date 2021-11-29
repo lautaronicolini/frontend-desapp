@@ -1,0 +1,28 @@
+import React from 'react';
+import axios from 'axios';
+import CryptoCard from './CryptoCard';
+import  Navbar  from './Navbar';
+
+const baseURL = 'http://localhost:8080/criptoP2P_API/transaction/all'
+
+export default class TransactionList extends React.Component {
+    state = { transactions: [] }
+
+    componentDidMount() {
+        axios.get(baseURL)
+        .then(res => {
+            const transactions = res.data;
+            this.setState({ transactions });
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="flexbox">
+                    { this.state.transactions.map(transaction => <CryptoCard symbol={crypto.symbol} price={crypto.price} dateOfPrice={crypto.dateOfPrice}/>)}
+                </div>
+            </div>
+        )
+    }
+}
