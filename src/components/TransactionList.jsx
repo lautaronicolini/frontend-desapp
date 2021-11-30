@@ -2,7 +2,6 @@ import axios from 'axios';
 import TransactionDetails from './TransactionDetails';
 import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 

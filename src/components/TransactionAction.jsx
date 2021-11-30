@@ -13,8 +13,9 @@ export default class TransactionAction extends React.Component {
      }
 
     componentDidMount() {
-
-        console.log("transactionAction props ",this.props)
+        console.log("props received action:",this.props)
+        console.log("role:",this.props.location.state.role)
+        console.log("role:",this.props.location.role)
         this.setState({details: this.props.location.state})
 
         const token = localStorage.getItem('SavedToken')
@@ -22,46 +23,93 @@ export default class TransactionAction extends React.Component {
             'Authorization': 'Bearer '+ token
           }
 
-          if(this.props.location.state.role==='Creator'){
- 
+
+        if(this.props.location.state.role==='Creator'){
+            //pide los datos de la transaccion por id
             const baseURL = `http://localhost:8080/api/transaction/details?id=${this.props.location.state.transactionId}`
 
             axios.get(
                 baseURL, 
-                { headers: headers})
-                .then( res=>{
-                    console.log(res)
-                    this.setState(prevState => ({
-                        details: {                   // object that we want to update
-                            ...prevState.details,    // keep all other key-value pairs
-                            time: res.data.time,       // update the value of specific key
-                            cryptoValue: res.data.price,
-                            seller: res.data.sellerEmail,
-                            buyer: res.data.buyerEmail,
-                            operationType: res.data.operationType,
-                            paymentAddress:''
-                        }
-                    }))
-                }
+                { headers: headers}
+            )
+            .then( res=>{
+                console.log("createTransaction response :",res.data)
+                this.setState({details: res.data})
+                console.log("state after api call :",this.state)
+
+            }).catch(res=>
+                console.log(res)
+            )
+        }
+        
+
+
+        if(this.props.location.role==='Applier'||this.props.location.role===undefined){
+                
+                const baseURLApply = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
+                axios.get(
+                    baseURLApply, 
+                    { headers: headers}
                 )
-            }
+                .then(res => {
+                    this.setState({paymentAddress: res.data})
+                    
+                    console.log("transaction applied ", res.data, " state : ",this.state )
+                })
+                .catch(res=>
+                    console.log(res)
+                    )
 
-        if(this.props.location.state.role==='Applier'){
+                    const baseURL = `http://localhost:8080/api/transaction/details?id=${this.props.location.state.transactionId}`
+
+                    axios.get(
+                        baseURL, 
+                        { headers: headers}
+                    )
+                    .then( res=>{
+                        console.log("RequestTransaction response applier:",res)
+                        this.setState({details: res.data}
+                        )
+                        }).catch(res=>
+                            console.log(res))
+                    console.log("state after api call :",this.state)
+        }
+    
+    }
+
+
+    handleConfirmation = () =>{        
+        const token = localStorage.getItem('SavedToken')
+        const headers = {
+            'Authorization': 'Bearer '+ token
+          }
+        console.log('handling confirmation: ', this.state)
+        if(this.state.details.stateHistory==='NEW'){
+            const baseURLNew = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=APPLIED`
+            axios.post(
+                baseURLNew, 
+                { headers: headers}
+            ).then(res=> {
+                console.log('transaction state updated: ', this.state.details.stateHistory)
+            }).catch(res=>
+                console.log("could not update state", res)
+                )
+        }
+
+        if( this.state.details.stateHistory==='APPLIED'){
+            const baseURLApplied = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=TRANSFERENCE_DONE`
+            axios.post(
+                baseURLApplied, 
+                { headers: headers}
+            ).then(res=> {
+                console.log('transaction state updated: ', this.state.details.stateHistory)
+            }).catch(res=>
+                console.log("could not update state", res)
+            )
+        }
+    }
+
  
-        const baseURL = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
-        axios.get(
-            baseURL, 
-            { headers: headers})
-          .then(res => {
-              this.setState({paymentAddress : res.data})
-            console.log("transaction applied ", res.data)
-          })
-      }
-    }
-
-      handleConfirmation(){
-
-    }
 
     render() {
        
@@ -76,13 +124,21 @@ export default class TransactionAction extends React.Component {
             </div>
             <div class="card-body flexbox">
                 <div>
-                    <p>Hora - {this.state.details.time}</p>
+                    <p>{this.state.details.time}</p>
                 </div>
                 <div class="container">
                     <div class="row align-items-start">
                         <div class="col">
                             <label>Usuario</label>
-                            <p>{this.state.details.userName + ' ' + this.state.details.userSurname}</p>
+                            {(this.state.details.operationType==='SELL'&&this.state.details.sellerEmail===localStorage.getItem('user'))&&                               
+                            <p> {this.state.details.buyerEmail}</p>}
+                            
+                            {(this.state.details.operationType==='BUY'&&this.state.details.buyerEmail===localStorage.getItem('user'))&&                               
+                            <p> {this.state.details.sellerEmail}</p>}
+                            
+                            {!((this.state.details.operationType==='SELL'&&this.state.details.sellerEmail===localStorage.getItem('user'))||
+                            (this.state.details.operationType==='BUY'&&this.state.details.buyerEmail===localStorage.getItem('user')))&&                               
+                            <p> {this.state.details.userName + ' ' + this.state.details.userSurname}</p>}
                         </div>
                         <div class="col">
                         <label>Cantidad nominal del Cripto Activo</label>
@@ -106,29 +162,35 @@ export default class TransactionAction extends React.Component {
                             </div>
                             { /*If user is Seller then show wallet address */}
                             <div class="col">
-                            {this.state.details.seller===localStorage.getItem('user') &&
-                            <div>
-                                <label>CVU a transferir</label>
+                            {this.state.details.sellerEmail===localStorage.getItem('user') &&
+                                <div>
+                                <label>Dirección de billetera</label>
                                 <p>{this.state.paymentAddress}</p>
-                                </div>}
+                                </div>
+                            }
                             </div>
                             { /*If user is Buyer then show CVU to transfer to */}
                             <div class="col">
-                            {this.state.details.buyer===localStorage.getItem('user')&&
-                            <div>
-                                <label>Dirección de billetera</label>
+                            {this.state.details.buyerEmail===localStorage.getItem('user') &&
+                                <div>
+                                <label>CVU a transferir</label>
                                 <p>{this.state.paymentAddress}</p>
-                                </div>}
+                                </div>
+                            }
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="btn-toolbar">
 
-                        {this.state.details.operationType=="SELL"&&<button  className="btn btn-primary btn-selection" onClick={this.handleConfirmation("SELL")}>Realicé la transferencia</button>}
-                        {this.state.details.operationType=="BUY"&&<button className="btn btn-primary btn-selection" onClick={this.handleConfirmation("BUY")}>Confirmar recepción</button>}                    
+                        {this.state.details.buyerEmail===localStorage.getItem('user')&&
+                        <button  className="btn btn-primary btn-selection" onClick={this.handleConfirmation}>Realicé la transferencia</button>}
 
-                        <button className="btn btn-primary" onClick={this.handleConfirmation("CANCEL")}>Cancelar</button>
+                        {this.state.details.sellerEmail===localStorage.getItem('user')&&
+                        <button className="btn btn-primary btn-selection" onClick={this.handleConfirmation} disabled={!(this.state.details.stateHistory==='TRANSFERENCE_DONE')}>Confirmar recepción</button>}
+                   
+
+                        <button className="btn btn-primary" onClick={this.handleConfirmation}>Cancelar</button>
                     </div>
             </div>
             </div>

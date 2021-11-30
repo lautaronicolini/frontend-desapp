@@ -14,22 +14,20 @@ function CryptoCard(props){
 
     let {symbol, price, dateOfPrice} = props 
 
-    const [operationType, setOpType]= useState("SELL")
-    const [nominalAmount, setNomAmount]= useState(0)
-    const [showModal, setShowModal]= useState(0)
+    const [nominalAmount, setNomAmount]= useState(0)    
     
     
-    
-    function createTransaction(){
+    function createTransaction(id){
+        
         const token = localStorage.getItem('SavedToken')
 
       const headers = {
         'Authorization': 'Bearer '+ token
       }
-        console.log(operationType)
+        console.log("opType before createTransktn: ",id)
         axios.post(baseURL, {
             crypto: props.symbol,
-            operationType: operationType,
+            operationType: id,
             nominalAmount: nominalAmount,
             unitPriceARS: props.price,
             creatorUser: localStorage.getItem('user')
@@ -37,26 +35,19 @@ function CryptoCard(props){
         { headers: headers})
         .then(res => {
             console.log(res.data)
-            console.log(operationType)
             toast.success("the transaction was created")
 
             
-           history.push('/transactionRequest',{transactionId:res.data, opType:operationType, role:'Creator', amount:nominalAmount, price:props.price, cryptoSymbol:props.symbol})
+           history.push('/transactionRequest',{transactionId:res.data, operationType:id, role:'Creator', amount:nominalAmount, price:props.price, cryptoSymbol:props.symbol})
         }).catch(res=>{
             toast.error("the transaction could not be created")
         })
     }
 
-    function handleClick(e){
-        setOpType(e.target.id)
-         createTransaction()
-    }
 
     function handleChange(e){
         setNomAmount( e.target.value)
     }
-
-
 
     return (
         <div className="cryptoCard">
@@ -64,15 +55,15 @@ function CryptoCard(props){
                 <div className="cryptoDataHalf">
                     <p className="symbol">{symbol}</p>
                     <p className="price">ARS {price}</p>
-                    <p>{dateOfPrice}</p>    
+                    <p>{dateOfPrice}</p>
                 </div>
                 <div className="cryptoTransactionHalf">
                     <div>
                         <input onChange={handleChange} type="number" id=""/>
                     </div>
                     <div>
-                        <button id="BUY" onClick={handleClick}>Comprar</button>
-                        <button id="SELL" onClick={handleClick}>Vender</button>
+                        <button id="BUY" onClick={()=>createTransaction("BUY")}>Comprar</button>
+                        <button id="SELL" onClick={()=>createTransaction("SELL")}>Vender</button>
                     </div>
                 </div>
             </div>
