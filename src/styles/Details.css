@@ -6,3 +6,17 @@
     margin-left: 5px;
     margin-right: 5px;
 }
+
+.transaction-status-active{
+    color: rgb(1, 189, 1);
+    font-weight: 700;
+}
+
+.transaction-status-finished{
+    color:blue;
+    font-weight: 700;
+}
+.transaction-status-cancelled{
+    color: rgb(173, 13, 13);
+    font-weight: 700;
+}

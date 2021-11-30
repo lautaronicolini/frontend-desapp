@@ -77,6 +77,23 @@ export default class TransactionAction extends React.Component {
     
     }
 
+    handleCancellation = () => {
+        const token = localStorage.getItem('SavedToken')
+        const headers = {
+            'Authorization': 'Bearer '+ token
+          }
+        console.log('handling cancellation: ', this.state)
+        const baseURL = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=CANCELED`
+        axios.post(
+            baseURL, 
+            { headers: headers}
+        ).then(res=> {
+            console.log('transaction state updated: ', this.state.details.stateHistory)
+        }).catch(res=>
+            console.log("could not update state", res)
+            )
+
+    }
 
     handleConfirmation = () =>{        
         const token = localStorage.getItem('SavedToken')
@@ -107,6 +124,17 @@ export default class TransactionAction extends React.Component {
                 console.log("could not update state", res)
             )
         }
+            if( this.state.details.stateHistory==='TRANSFERENCE_DONE'){
+                const baseURLApplied = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=CLOSED`
+                axios.post(
+                    baseURLApplied, 
+                    { headers: headers}
+                ).then(res=> {
+                    console.log('transaction state updated: ', this.state.details.stateHistory)
+                }).catch(res=>
+                    console.log("could not update state", this.state)
+                )
+        }
     }
 
  
@@ -115,7 +143,15 @@ export default class TransactionAction extends React.Component {
        
     return (
         <div>
-            Transacción en curso
+            <div>
+                 {this.state.details.stateHistory===('NEW')&&<p className="transaction-status-active">Transacción en curso</p>}
+                 {this.state.details.stateHistory===('APPLIED')&&<p className="transaction-status-active">Transacción en curso</p>}
+                 {this.state.details.stateHistory===('TRANSFERENCE_DONE')&&<p className="transaction-status-active">Transacción en curso</p>}
+                 {this.state.details.stateHistory==='CLOSED' &&<p className="transaction-status-finished">Transacción finalizada</p>}
+                 {this.state.details.stateHistory==='CANCELED' &&<p className="transaction-status-cancelled">Transacción cancelada</p>}
+
+
+            </div>
         <div className="card">
 
             <div class="card-header">
@@ -184,13 +220,14 @@ export default class TransactionAction extends React.Component {
                 <div className="btn-toolbar">
 
                         {this.state.details.buyerEmail===localStorage.getItem('user')&&
-                        <button  className="btn btn-primary btn-selection" onClick={this.handleConfirmation}>Realicé la transferencia</button>}
+                        <button  className="btn btn-primary btn-selection" onClick={this.handleConfirmation} disabled={!(this.state.details.stateHistory==='NEW'||this.state.details.stateHistory==='APPLIED')}>
+                            Realicé la transferencia</button>}
 
                         {this.state.details.sellerEmail===localStorage.getItem('user')&&
                         <button className="btn btn-primary btn-selection" onClick={this.handleConfirmation} disabled={!(this.state.details.stateHistory==='TRANSFERENCE_DONE')}>Confirmar recepción</button>}
                    
 
-                        <button className="btn btn-primary" onClick={this.handleConfirmation}>Cancelar</button>
+                        {!(this.state.details.stateHistory==='CLOSED'||this.state.details.stateHistory==='CANCELED')&&<button className="btn btn-primary" onClick={this.handleCancellation} >Cancelar</button>}
                     </div>
             </div>
             </div>
