@@ -37,7 +37,7 @@ const baseURL = 'http://localhost:8080/api/transaction/all'
         <ul class="list-group list-group-flush">
         { transactions.map(t => {
           if(!(t.operationType==='SELL'&&t.sellerEmail===localStorage.getItem('user')||
-            t.operationType==='BUY'&&t.buyerEmail===localStorage.getItem('user'))){
+            t.operationType==='BUY'&&t.buyerEmail===localStorage.getItem('user')) && t.stateHistory.stateUpdates.length<2){
            return <li class="list-group-item"><TransactionDetails key={t.id} details={t} /></li>
           }
         })}
