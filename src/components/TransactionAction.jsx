@@ -102,7 +102,7 @@ export default class TransactionAction extends React.Component {
           }
         console.log('handling confirmation: ', this.state)
         if(this.state.details.stateHistory==='NEW'){
-            const baseURLNew = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=APPLIED`
+            const baseURLNew = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=APPLIED&userUpdaterEmail=${localStorage.getItem('user')}`
             axios.post(
                 baseURLNew, 
                 { headers: headers}
@@ -114,7 +114,7 @@ export default class TransactionAction extends React.Component {
         }
 
         if( this.state.details.stateHistory==='APPLIED'){
-            const baseURLApplied = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=TRANSFERENCE_DONE`
+            const baseURLApplied = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=TRANSFERENCE_DONE&userUpdaterEmail=${localStorage.getItem('user')}`
             axios.post(
                 baseURLApplied, 
                 { headers: headers}
@@ -125,7 +125,7 @@ export default class TransactionAction extends React.Component {
             )
         }
             if( this.state.details.stateHistory==='TRANSFERENCE_DONE'){
-                const baseURLApplied = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=CLOSED`
+                const baseURLApplied = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=CLOSED&userUpdaterEmail=${localStorage.getItem('user')}`
                 axios.post(
                     baseURLApplied, 
                     { headers: headers}
