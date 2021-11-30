@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserCard from './UserCard';
 import { useHistory } from 'react-router-dom';
-
+import { useTranslation, Trans } from 'react-i18next';
 
 const baseURL = 'http://localhost:8080/api/users'
 
@@ -10,7 +10,7 @@ function Users() {
 
     const history = useHistory();
     const [users,setUsers]= useState([]);
-
+    const { t, i18n } = useTranslation()
 
     useEffect(()=>{
       const token = localStorage.getItem('SavedToken')
@@ -39,7 +39,7 @@ function Users() {
     return (
     <div className="users">
         <div className="users-container">
-        <h1 class="user-title">Users</h1>
+        <h1 class="user-title"><Trans i18nKey="users.title">Users</Trans></h1>
 
             { users.map(user =>
               

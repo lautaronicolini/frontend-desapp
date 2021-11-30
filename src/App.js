@@ -12,6 +12,12 @@ import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 import TransactionAction from './components/TransactionAction';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import i18n from './i18n';
+
+const lngs = {
+  en: { nativeName: 'English' },
+  es: { nativeName: 'Español' }
+};
 
 class App extends React.Component {
   constructor(props){
@@ -23,6 +29,13 @@ class App extends React.Component {
     <div className="main-page">
       <div className="content">
         <Navbar/>
+        <div>
+          {Object.keys(lngs).map((lng) => (
+            <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
+              {lngs[lng].nativeName}
+            </button>
+          ))}
+        </div>
         <BrowserRouter>
           <Switch>
           <Route exact path="/" render ={ props => (

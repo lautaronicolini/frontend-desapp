@@ -1,14 +1,11 @@
-
-
 import React, { Component, useState } from 'react';
 import axios from 'axios'; //http requests by promises
 import '../styles/Login.css'
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import { Link } from 'react-router-dom';
-import  Navbar  from './Navbar';
 import { useHistory } from 'react-router-dom';
-
+import { useTranslation, Trans } from 'react-i18next';
 
 
 const baseURL = 'http://localhost:8080/api/authenticate' //endpoint of backend API
@@ -17,6 +14,7 @@ function Login () {
     const history = useHistory();
     const [email,setEmail]= useState('');
     const [password,setPassword]= useState('');
+    const { t, i18n } = useTranslation()
 
  const handleChange =(ev) => {
         console.log("Change event - ",ev.target.name, ev.target.value)
@@ -62,11 +60,11 @@ return(
             <div className='login-card'/>
 
             <div className='form section container center d-flex flex-column align-items-center login' style={{ width: '55%', maxHeight: '100vh' }}>
-                <h1>Login to your account</h1>
+                <h1><Trans i18nKey="login.title">Login to your account</Trans></h1>
                     <input className="login-input" type='text' name='email' placeholder='Email' onChange={handleChange}/>
                     <input className="login-input" type='password' name='password' placeholder='Password' onChange={handleChange}/>
-                    <p> Don't have an account?</p>  <Link to="/register">Sign-up here</Link>
-                <button>Log In</button>
+                    <p><Trans i18nKey="login.register">Don't have an account?</Trans></p>  <Link to="/register"><Trans i18nKey="login.registerLink">Sign-up here</Trans></Link>
+                <button><Trans i18nKey="login.loginText">Log In</Trans></button>
             </div>
         </div>
         

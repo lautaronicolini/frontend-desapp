@@ -48,4 +48,3 @@ const baseURL = 'http://localhost:8080/api/transaction/all'
 
 
   export default TransactionList
-
