@@ -23,6 +23,9 @@ i18n
                 create: {
                     buy: "Buy",
                     sell: "Sell"
+                }, 
+                details: {
+                    amountOffered: "offered amount"
                 }
             },
             login: {
@@ -37,6 +40,17 @@ i18n
                 createAccount: "Create Account",
                 login: "Already have an account?",
                 startOperating: "Start operating now"
+            },
+            navbar: {
+                users: "Users",
+                transactions: "Active Transactions",
+                createTransactions: "Create Transaction"
+            },
+            users: {
+                title: "Users",
+                reputation: "Reputation",
+                cvu: "CVU Number",
+                wallet: "Wallet Address"
             }
         }
       },
@@ -46,6 +60,9 @@ i18n
                 create: {
                     buy: "Comprar",
                     sell: "Vender"
+                }, 
+                details: {
+                    amountOffered: "cantidad ofertada"
                 }
             },
             login : {
@@ -60,6 +77,17 @@ i18n
                 createAccount: "Crear Cuenta",
                 login: "¿Ya tenés cuenta?",
                 startOperating: "Empezá a operar ahora"
+            },
+            navbar: {
+                users: "Usuarios",
+                transactions: "Transacciones Activas",
+                createTransactions: "Crear Transacciones"
+            },
+            users: {
+                title: "Usuarios",
+                reputation: "Reputación",
+                cvu: "Número de CVU",
+                wallet: "Dirección de Billetera"
             }
         }
       }
