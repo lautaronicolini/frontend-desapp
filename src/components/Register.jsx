@@ -5,7 +5,7 @@ import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import  Navbar  from './Navbar';
 import { useHistory } from 'react-router-dom';
-
+import { useTranslation, Trans } from 'react-i18next';
 
 const baseURL = 'http://localhost:8080/api/register'
 
@@ -20,9 +20,7 @@ function Register() {
     const [address,setAddress]= useState('');
     const [CVU,setCVU]= useState('');
     const [walletAddress,setWA]= useState('');
-    
-
-    
+    const { t, i18n } = useTranslation()
 
     const handleChange =(ev) => {
         console.log("Change event - ",ev.target.name)
@@ -75,8 +73,12 @@ function Register() {
 
         <div className="card bg-light">
         <article className="card-body mx-auto">
-            <h4 className="card-title mt-3 text-center">Create Account</h4>
-            <p className="text-center">Get started with your free account</p>
+            <h4 className="card-title mt-3 text-center">
+                <Trans i18nKey="register.title">Create Account</Trans>
+            </h4>
+            <p className="text-center">
+                <Trans i18nKey="register.subtitle">Get started with your free account</Trans>
+            </p>
 
             <form onSubmit={handleSubmit} className="register-form">
             <div className="form-group input-group">
@@ -87,7 +89,7 @@ function Register() {
                 className="input-box" 
                 name= "name" 
                 autoComplete="name" 
-                placeholder="Name" 
+                placeholder="Name"
                 type="text"
                 minLength="1"
                 maxLength="30" 
@@ -202,10 +204,10 @@ function Register() {
 
 
             <div className="form-group">
-                <button type="submit" className="btn btn-primary btn-block"> Create Account </button>
+                <button type="submit" className="btn btn-primary btn-block"><Trans i18nKey="register.createAccount"> Create Account </Trans></button>
             </div> 
 
-            <p className="text-center">Already have an account? <a href="/login">Log In</a> </p>                                                                 
+            <p className="text-center"><Trans i18nKey="register.login">Already have an account?</Trans><a href="/login"><Trans i18nKey="login.loginText"> Log In</Trans></a> </p>                                                                 
         </form>
         </article>
 
@@ -213,7 +215,7 @@ function Register() {
         <article className="bg-secondary mb-3">  
         <div className="card-body text-center">
             <h4 className="text-white mt-3">CryptoP2P</h4>
-        <p className="h5 text-white">Start operating now  <br/> FAQ</p>   <br/>
+        <p className="h5 text-white"><Trans i18nKey="register.startOperating">Start operating now  </Trans><br/> FAQ</p>   <br/>
 
         </div>
         <br/><br/>

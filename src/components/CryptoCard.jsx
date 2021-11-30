@@ -3,12 +3,13 @@ import axios from 'axios'
 import {toast, ToastContainer} from "react-toastify";
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 
 const baseURL = 'http://localhost:8080/api/transaction/create'
 
 
 function CryptoCard(props){    
+    const { t, i18n } = useTranslation();
 
     let history = useHistory()
 
@@ -62,8 +63,8 @@ function CryptoCard(props){
                         <input onChange={handleChange} type="number" id=""/>
                     </div>
                     <div>
-                        <button id="BUY" onClick={()=>createTransaction("BUY")}>Comprar</button>
-                        <button id="SELL" onClick={()=>createTransaction("SELL")}>Vender</button>
+                        <button id="BUY" onClick={()=>createTransaction("BUY")}>{t("transaction.create.buy")}</button>
+                        <button id="SELL" onClick={()=>createTransaction("SELL")}>{t("transaction.create.sell")}</button>
                     </div>
                 </div>
             </div>
