@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css"
 import { Link } from 'react-router-dom';
 import  Navbar  from './Navbar';
 import { useHistory } from 'react-router-dom';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -42,7 +41,7 @@ function Login () {
         localStorage.setItem("SavedToken", token)
         localStorage.setItem("user", email)
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        history.push('/crypto')
+        history.push('/users')
 
         }
     )

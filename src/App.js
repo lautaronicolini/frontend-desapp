@@ -7,11 +7,11 @@ import CryptoCardList from './components/CryptoCardList';
 import TransactionDetails from './components/TransactionDetails';
 import Login from './components/Login'
 import Users from './components/Users';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import TransactionList from './components/TransactionList';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 import TransactionAction from './components/TransactionAction';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
   constructor(props){

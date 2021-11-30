@@ -11,7 +11,6 @@ function UserCard (props) {
     <p class="card-text"> {props.user.email}</p>
     <p class="card-text">CVU Number {props.user.cvu}</p>
     <p class="card-text">Wallet Address {props.user.walletAddress}</p>
-    <a href="#" class="btn btn-primary">Trade</a>
   </div>
 </div>
 
