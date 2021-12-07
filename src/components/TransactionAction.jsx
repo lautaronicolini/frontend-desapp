@@ -10,17 +10,16 @@ import { Redirect } from 'react-router-dom';
 export default class TransactionAction extends React.Component {
 
     state = { 
+        role: this.props.location.state.role,
         details: {},
-        paymentAddress:'',
         receivedConfirmation: false,
         setConfirmation:false,
      }
 
     componentDidMount() {
         console.log("props received action:",this.props)
-        console.log("role:",this.props.location.state.role)
-        console.log("role:",this.props.location.role)
         this.setState({details: this.props.location.state})
+        console.log("state :",this.state)
 
         const token = localStorage.getItem('SavedToken')
         const headers = {
@@ -45,7 +44,7 @@ export default class TransactionAction extends React.Component {
         
 
 
-        if(this.props.location.role==='Applier'||this.props.location.role===undefined){
+        if(this.state.role==='Applier'||this.state.details.stateHistory==='NEW'){
                 
             const baseURLApply = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
             axios.get(

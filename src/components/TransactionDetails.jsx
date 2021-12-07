@@ -27,6 +27,7 @@ export default class TransactionDetails extends React.Component {
           .then(res => {
             const details = res.data;
             this.setState({ details });
+            this.state.details.role = 'Applier'
           })
           console.log(this.state)
       }
@@ -35,8 +36,7 @@ export default class TransactionDetails extends React.Component {
         if (this.state.redirect) {
             return <Redirect to={{
                 pathname: '/transactionRequest',
-                state: this.state.details,
-                role:'Applier'
+                state: this.state.details
             }}/>
           }
              
