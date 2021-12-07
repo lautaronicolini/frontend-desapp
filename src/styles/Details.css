@@ -20,3 +20,10 @@
     color: rgb(173, 13, 13);
     font-weight: 700;
 }
+
+.transaction-card {
+    margin: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    align-items: center;
+}

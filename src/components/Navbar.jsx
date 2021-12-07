@@ -7,6 +7,10 @@ function Navbar ()  {
       return(  
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <a className="navbar-brand" href="#">Crypto P2P</a>
+        <span class="navbar-text">
+          {localStorage.getItem('user')} |
+          </span>
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
           <li className="nav-item">
@@ -22,6 +26,7 @@ function Navbar ()  {
               <a className="nav-link" href="/crypto"><Trans i18nKey="navbar.createTransactions">Create Transaction </Trans></a>
             </li>
           </ul>
+          <div/>
         </div>
       </nav>
       );

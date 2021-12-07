@@ -52,20 +52,24 @@ function CryptoCard(props){
 
     return (
         <div className="cryptoCard">
-            <div className="flexbox">
+            <div className="card-body flexbox">
                 <div className="cryptoDataHalf">
                     <p className="symbol">{symbol}</p>
                     <p className="price">ARS {price}</p>
                     <p>{dateOfPrice}</p>
                 </div>
                 <div className="cryptoTransactionHalf">
-                    <div>
-                        <input onChange={handleChange} type="number" id=""/>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">$</span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1"/>
                     </div>
-                    <div>
-                        <button id="BUY" onClick={()=>createTransaction("BUY")}>{t("transaction.create.buy")}</button>
-                        <button id="SELL" onClick={()=>createTransaction("SELL")}>{t("transaction.create.sell")}</button>
-                    </div>
+                <div>
+                    <button className="btn btn-dark" id="BUY" onClick={()=>createTransaction("BUY")}>{t("transaction.create.buy")}</button>
+
+                    <button className="btn btn-dark" id="SELL" onClick={()=>createTransaction("SELL")}>{t("transaction.create.sell")}</button>
+                </div>
                 </div>
             </div>
             <ToastContainer

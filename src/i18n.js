@@ -81,7 +81,7 @@ i18n
             navbar: {
                 users: "Usuarios",
                 transactions: "Transacciones Activas",
-                createTransactions: "Crear Transacciones"
+                createTransactions: "Crear Transacción"
             },
             users: {
                 title: "Usuarios",

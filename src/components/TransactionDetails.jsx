@@ -9,7 +9,8 @@ export default class TransactionDetails extends React.Component {
 
     state = { 
         details: {},
-        redirect:false
+        redirect:false,
+        anyTransactions: false
     }
 
     componentDidMount() {

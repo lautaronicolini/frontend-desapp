@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import '../styles/Details.css'
+import '../styles/Details.css';
+import { browserHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
+
+
 
 
 export default class TransactionAction extends React.Component {
@@ -22,9 +26,6 @@ export default class TransactionAction extends React.Component {
         const headers = {
             'Authorization': 'Bearer '+ token
           }
-
-
-        if(this.props.location.state.role==='Creator'){
             //pide los datos de la transaccion por id
             const baseURL = `http://localhost:8080/api/transaction/details?id=${this.props.location.state.transactionId}`
 
@@ -36,43 +37,30 @@ export default class TransactionAction extends React.Component {
                 console.log("createTransaction response :",res.data)
                 this.setState({details: res.data})
                 console.log("state after api call :",this.state)
+                //
 
             }).catch(res=>
                 console.log(res)
             )
-        }
         
 
 
         if(this.props.location.role==='Applier'||this.props.location.role===undefined){
                 
-                const baseURLApply = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
-                axios.get(
-                    baseURLApply, 
-                    { headers: headers}
+            const baseURLApply = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
+            axios.get(
+                baseURLApply, 
+                { headers: headers}
+            )
+            .then(res => {
+                this.setState({paymentAddress: res.data})
+                console.log("transaction applied ", res.data, " state : ",this.state )
+                window.location.reload()
+            })
+            .catch(res=>
+                console.log('')
                 )
-                .then(res => {
-                    this.setState({paymentAddress: res.data})
-                    
-                    console.log("transaction applied ", res.data, " state : ",this.state )
-                })
-                .catch(res=>
-                    console.log(res)
-                    )
 
-                    const baseURL = `http://localhost:8080/api/transaction/details?id=${this.props.location.state.transactionId}`
-
-                    axios.get(
-                        baseURL, 
-                        { headers: headers}
-                    )
-                    .then( res=>{
-                        console.log("RequestTransaction response applier:",res)
-                        this.setState({details: res.data}
-                        )
-                        }).catch(res=>
-                            console.log(res))
-                    console.log("state after api call :",this.state)
         }
     
     }
@@ -83,12 +71,15 @@ export default class TransactionAction extends React.Component {
             'Authorization': 'Bearer '+ token
           }
         console.log('handling cancellation: ', this.state)
-        const baseURL = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=CANCELED`
+        const baseURL = `http://localhost:8080/api/transaction/changeState?id=${this.props.location.state.transactionId}&newState=CANCELED&userUpdaterEmail=${localStorage.getItem('user')}`
         axios.post(
             baseURL, 
             { headers: headers}
         ).then(res=> {
             console.log('transaction state updated: ', this.state.details.stateHistory)
+            this.setState({details: this.props.location.state},{role: this.props.location.role})
+            window.location.reload()
+
         }).catch(res=>
             console.log("could not update state", res)
             )
@@ -108,6 +99,7 @@ export default class TransactionAction extends React.Component {
                 { headers: headers}
             ).then(res=> {
                 console.log('transaction state updated: ', this.state.details.stateHistory)
+                window.location.reload()
             }).catch(res=>
                 console.log("could not update state", res)
                 )
@@ -120,6 +112,7 @@ export default class TransactionAction extends React.Component {
                 { headers: headers}
             ).then(res=> {
                 console.log('transaction state updated: ', this.state.details.stateHistory)
+                window.location.reload()
             }).catch(res=>
                 console.log("could not update state", res)
             )
@@ -131,6 +124,7 @@ export default class TransactionAction extends React.Component {
                     { headers: headers}
                 ).then(res=> {
                     console.log('transaction state updated: ', this.state.details.stateHistory)
+                    window.location.reload()
                 }).catch(res=>
                     console.log("could not update state", this.state)
                 )
@@ -142,7 +136,7 @@ export default class TransactionAction extends React.Component {
     render() {
        
     return (
-        <div>
+        <div className="transaction-card">
             <div>
                  {this.state.details.stateHistory===('NEW')&&<p className="transaction-status-active">Transacción en curso</p>}
                  {this.state.details.stateHistory===('APPLIED')&&<p className="transaction-status-active">Transacción en curso</p>}
@@ -220,7 +214,7 @@ export default class TransactionAction extends React.Component {
                 <div className="btn-toolbar">
 
                         {this.state.details.buyerEmail===localStorage.getItem('user')&&
-                        <button  className="btn btn-primary btn-selection" onClick={this.handleConfirmation} disabled={!(this.state.details.stateHistory==='NEW'||this.state.details.stateHistory==='APPLIED')}>
+                        <button  className="btn btn-primary btn-selection" onClick={this.handleConfirmation} disabled={!(this.state.details.stateHistory==='APPLIED')}>
                             Realicé la transferencia</button>}
 
                         {this.state.details.sellerEmail===localStorage.getItem('user')&&
