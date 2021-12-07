@@ -8,7 +8,7 @@ function Navbar ()  {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <a className="navbar-brand" href="#">Crypto P2P</a>
         <span class="navbar-text">
-          {localStorage.getItem('user')} |
+          [{localStorage.getItem('user')}]  |  
           </span>
 
         <div className="collapse navbar-collapse" id="navbarNav">

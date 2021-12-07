@@ -77,13 +77,10 @@ export default class TransactionAction extends React.Component {
             { headers: headers}
         ).then(res=> {
             console.log('transaction state updated: ', this.state.details.stateHistory)
-            this.setState({details: this.props.location.state},{role: this.props.location.role})
             window.location.reload()
-
         }).catch(res=>
             console.log("could not update state", res)
             )
-
     }
 
     handleConfirmation = () =>{        
@@ -171,7 +168,7 @@ export default class TransactionAction extends React.Component {
                             <p> {this.state.details.userName + ' ' + this.state.details.userSurname}</p>}
                         </div>
                         <div class="col">
-                        <label>Cantidad nominal del Cripto Activo</label>
+                        <label>Cantidad nominal</label>
                             <p>{this.state.details.amount}</p>
                         </div>
                     <div class="row align-items-start">

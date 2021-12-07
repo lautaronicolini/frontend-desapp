@@ -11,6 +11,7 @@ const baseURL = 'http://localhost:8080/api/transaction/all'
 
   const history = useHistory()
   const [transactions, setTransactions]= useState([])
+  const [noTransactions, setNT]= useState(true)
 
   useEffect(()=>{
      const token =  localStorage.getItem('SavedToken')
@@ -34,13 +35,21 @@ const baseURL = 'http://localhost:8080/api/transaction/all'
     return (
     <div>
         <h3>Active transactions</h3>
+        {! transactions.some(t => 
+          !(t.operationType==='SELL'&&t.sellerEmail===localStorage.getItem('user')||
+            t.operationType==='BUY'&&t.buyerEmail===localStorage.getItem('user')) && t.stateHistory.stateUpdates.length<2)
+            && <p class="text-center">Aún no hay transacciones creadas! </p>}
+
+
         <div className="flexbox">
-        { transactions.map(t => {
+        {
+        transactions.map(t => {
           if(!(t.operationType==='SELL'&&t.sellerEmail===localStorage.getItem('user')||
             t.operationType==='BUY'&&t.buyerEmail===localStorage.getItem('user')) && t.stateHistory.stateUpdates.length<2){
            return <li class="list-group-item"><TransactionDetails key={t.id} details={t} /></li>
           }
-        })}
+        })
+        }
       </div>
     </div>
     )
