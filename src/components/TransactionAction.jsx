@@ -36,31 +36,28 @@ export default class TransactionAction extends React.Component {
                 console.log("createTransaction response :",res.data)
                 this.setState({details: res.data})
                 console.log("state after api call :",this.state)
-                //
+                if(this.state.role==='Applier'&&this.state.details.stateHistory==='NEW'){
+                
+                    const baseURLApply = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
+                    axios.get(
+                        baseURLApply, 
+                        { headers: headers}
+                    )
+                    .then(res => {
+                        this.setState({paymentAddress: res.data})
+                        console.log("transaction applied ", res.data, " state : ",this.state )
+                        window.location.reload()
+                    })
+                    .catch(res=>
+                        console.log('')
+                        )
+        
+                }
 
             }).catch(res=>
                 console.log(res)
             )
         
-
-
-        if(this.state.role==='Applier'||this.state.details.stateHistory==='NEW'){
-                
-            const baseURLApply = `http://localhost:8080/api/transaction/apply?id=${this.props.location.state.transactionId}&userEmail=${localStorage.getItem("user")}`
-            axios.get(
-                baseURLApply, 
-                { headers: headers}
-            )
-            .then(res => {
-                this.setState({paymentAddress: res.data})
-                console.log("transaction applied ", res.data, " state : ",this.state )
-                window.location.reload()
-            })
-            .catch(res=>
-                console.log('')
-                )
-
-        }
     
     }
 
