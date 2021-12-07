@@ -8,7 +8,7 @@ import TransactionDetails from './components/TransactionDetails';
 import Login from './components/Login'
 import Users from './components/Users';
 import TransactionList from './components/TransactionList';
-import Navbar from './components/Navbar';
+import NavbarResponsive from './components/NavbarResponsive';
 import NotFound from './components/NotFound';
 import TransactionAction from './components/TransactionAction';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -28,7 +28,7 @@ class App extends React.Component {
   return (
     <div className="main-page">
       <div className="content">
-        <Navbar/>
+        <NavbarResponsive/>
         <div>
           {Object.keys(lngs).map((lng) => (
             <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
